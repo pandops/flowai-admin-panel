@@ -1,0 +1,125 @@
+name: Qualify Admin Panel
+run-name: Qualify Admin Panel ${{ inputs.expected_source_sha }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      expected_source_sha:
+        description: Full commit SHA of the selected Admin Panel ref
+        type: string
+        required: true
+      task_manager_sha:
+        description: Full commit SHA of task-manager
+        type: string
+        required: true
+      team_registry_sha:
+        description: Full commit SHA of Team Registry
+        type: string
+        required: true
+      flow_registry_sha:
+        description: Full commit SHA of Flow Registry
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      EXPECTED_SOURCE_SHA: ${{ inputs.expected_source_sha }}
+      TASK_MANAGER_SHA: ${{ inputs.task_manager_sha }}
+      TEAM_REGISTRY_SHA: ${{ inputs.team_registry_sha }}
+      FLOW_REGISTRY_SHA: ${{ inputs.flow_registry_sha }}
+      GOTOOLCHAIN: local
+      GOWORK: 'off'
+    steps:
+      - name: Verify dispatch SHAs
+        shell: bash
+        run: |
+          for input in EXPECTED_SOURCE_SHA TASK_MANAGER_SHA TEAM_REGISTRY_SHA FLOW_REGISTRY_SHA; do
+            if [[ ! "${!input}" =~ ^[0-9a-fA-F]{40}$ ]]; then
+              echo "$input must be a 40-digit hexadecimal commit SHA." >&2
+              exit 1
+            fi
+          done
+          if [[ "$GITHUB_SHA" != "${EXPECTED_SOURCE_SHA,,}" ]]; then
+            echo 'The dispatch ref does not resolve to expected_source_sha.' >&2
+            exit 1
+          fi
+
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Stage pinned publisher schemas
+        shell: bash
+        run: |
+          source_sha="${EXPECTED_SOURCE_SHA,,}"
+          if [[ "$(git rev-parse HEAD)" != "$source_sha" ]]; then
+            echo 'The checkout does not match expected_source_sha.' >&2
+            exit 1
+          fi
+          if [[ ! -f go.mod || ! -f qualification/admin-panel-declarations.json ]]; then
+            echo 'Dispatch on the reviewed standalone candidate branch.' >&2
+            exit 1
+          fi
+
+          umask 077
+          contracts="$(mktemp -d "$RUNNER_TEMP/admin-panel-contracts.XXXXXXXX")"
+
+          fetch_schema() {
+            local repo="$1" sha="$2" root="$3" file="$4" checksum="$5" status
+            local url="https://raw.githubusercontent.com/pandops/$repo/${sha,,}/schemas/$file"
+            local output="$root/schemas/$file"
+            mkdir -p "$contracts/$root/schemas"
+            status="$(curl -q --silent --show-error --fail --proto '=https' --max-time 30 \
+              --output "$contracts/$output" --write-out '%{http_code}' "$url")"
+            if [[ "$status" != 200 ]]; then
+              echo "Unexpected HTTP status $status for $url." >&2
+              exit 1
+            fi
+            printf '%s  %s\n' "$checksum" "$contracts/$output" | sha256sum --check --status
+            printf '%s ' "$url"
+            (cd "$contracts" && sha256sum "$output")
+          }
+
+          fetch_schema flowai-team-registry "$TEAM_REGISTRY_SHA" svc/team-registry admin.archive.reply.schema.json d1ffd2236bb2295a92afad864b4a1903537219b3ec9a98e91816a43ed6b8d940
+          fetch_schema flowai-team-registry "$TEAM_REGISTRY_SHA" svc/team-registry admin.archive.request.schema.json 527f6d648f9eab68cff24ac9015afb2ac8ec024755a421800eb8d4d9f3466df1
+          fetch_schema flowai-team-registry "$TEAM_REGISTRY_SHA" svc/team-registry admin.create.reply.schema.json 84ee5af2e512466815cbd47b02e2e9160c8bfa121852c3bc4926a2e231c6d605
+          fetch_schema flowai-team-registry "$TEAM_REGISTRY_SHA" svc/team-registry admin.create.request.schema.json 0da46c48d4a583415cc9e604a146f32d2a951fef303dfe27fe86a4557c6cdcdd
+          fetch_schema flowai-team-registry "$TEAM_REGISTRY_SHA" svc/team-registry admin.get.reply.schema.json 8432e77c444a717339fb5ca1374bd3163ea03695c00f162b1d0eb806ac515947
+          fetch_schema flowai-team-registry "$TEAM_REGISTRY_SHA" svc/team-registry admin.get.request.schema.json 08cba77ba58a055df2927070050a8a41777b18c6fde1eff59d1167032d3ccd7d
+          fetch_schema flowai-team-registry "$TEAM_REGISTRY_SHA" svc/team-registry admin.update.reply.schema.json ffa56a08f44d2b37dfa3838e51a9f09f0ccee6bc5b23bb3b6424b91bc87af0f0
+          fetch_schema flowai-team-registry "$TEAM_REGISTRY_SHA" svc/team-registry admin.update.request.schema.json faf7564f0e214d4f3c349320eb71fe1d5c32d66e640509d3ebaa556169397a5b
+          fetch_schema flowai-team-registry "$TEAM_REGISTRY_SHA" svc/team-registry error.reply.schema.json 2649df5e5e4cd385cd29678a4d60ea9b04a3f1c695e4b5299ed047300512a31f
+          fetch_schema flowai-flow-registry "$FLOW_REGISTRY_SHA" svc/flow-registry admin.tags.reply.schema.json bd6ca5f2089f9cb2b46ac9ccfed85de4de051aac936c3f8d9a69ebec5f47e67c
+          fetch_schema flowai-flow-registry "$FLOW_REGISTRY_SHA" svc/flow-registry admin.tags.request.schema.json 904090de156bd3b4f8869fec8a47aaa68e27dc9725086849529e0d64c2e8911d
+          fetch_schema flowai-flow-registry "$FLOW_REGISTRY_SHA" svc/flow-registry defs.schema.json d26e3cea5ff72963de45b933c2eff365d04280cc00fee3c6e76668778f597077
+          fetch_schema flowai-flow-registry "$FLOW_REGISTRY_SHA" svc/flow-registry error.reply.schema.json f8e2d07fc5d530e3fe522b952cc8d44dad57ddb84311b8fb32bec520ed3f7dad
+          fetch_schema flowai-task-manager "$TASK_MANAGER_SHA" svc/task-manager admin.list-tasks.reply.schema.json 7615f9f8bddb792d01f5110c52c71341551140eaa48bc4f9f854d3ae3babda0a
+          fetch_schema flowai-task-manager "$TASK_MANAGER_SHA" svc/task-manager admin.list-tasks.request.schema.json ab0e2b8f323ea6452a011741f465c64e7cfe8c9f7afc896bc7c21754e0f4f630
+          fetch_schema flowai-task-manager "$TASK_MANAGER_SHA" svc/task-manager defs.schema.json 5bb6eea9a1419dd7019c4a1998a83e57e71c277c3ecedd2f13f67c6a1023adc6
+          fetch_schema flowai-task-manager "$TASK_MANAGER_SHA" svc/task-manager error.reply.schema.json 59fa187d28347ea05a517c81ee312bee4041736fd36d906c5f0234a88f7f0c46
+          printf 'FLOWAI_CONTRACT_FIXTURE_DIR=%s\n' "$contracts" >> "$GITHUB_ENV"
+
+      - uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6.3.0
+        with:
+          go-version: '1.26.2'
+          cache: false
+
+      - name: Verify locked modules
+        run: go mod verify
+
+      - name: Unit tests
+        shell: bash
+        run: go test -mod=readonly -count=1 -coverpkg=./... -v ./...
+
+      - name: Build local Linux image
+        shell: bash
+        run: |
+          docker build --platform linux/amd64 -f Containerfile --iidfile "$RUNNER_TEMP/admin-panel.iid" .
+          cat "$RUNNER_TEMP/admin-panel.iid"
