@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "audit.tasks-list.schema.json",
+  "title": "admin-panel rejection audit: tasks-list",
+  "description": "Published by admin-panel on admin-panel.audit.tasks-list.pub when it rejects GET /admin/tasks itself. Shape: defs.schema.json#/$defs/rejection.",
+  "$ref": "defs.schema.json#/$defs/rejection",
+  "properties": {
+    "action": {
+      "const": "tasks-list"
+    },
+    "resource_type": {
+      "const": "tasks"
+    }
+  },
+  "examples": [
+    {
+      "publisher": "admin-panel",
+      "publisher_seq": 1762510000000006,
+      "occurred_at": "2026-11-07T10:00:06.250Z",
+      "source_service": "admin-panel",
+      "actor_type": "administrator",
+      "actor_subject": "admin-user-1",
+      "action": "tasks-list",
+      "resource_type": "tasks",
+      "resource_id": 3,
+      "request_id": 4611686018427387906,
+      "outcome": "rejected",
+      "reason": "invalid_request"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "audit.team-update.schema.json",
+  "title": "admin-panel rejection audit: team-update",
+  "description": "Published by admin-panel on admin-panel.audit.team-update.pub when it rejects PATCH /admin/teams/{team_id} itself. Shape: defs.schema.json#/$defs/rejection.",
+  "$ref": "defs.schema.json#/$defs/rejection",
+  "properties": {
+    "action": {
+      "const": "team-update"
+    },
+    "resource_type": {
+      "const": "team"
+    }
+  },
+  "examples": [
+    {
+      "publisher": "admin-panel",
+      "publisher_seq": 1762510000000003,
+      "occurred_at": "2026-11-07T10:00:03.250Z",
+      "source_service": "admin-panel",
+      "actor_type": "administrator",
+      "actor_subject": "admin-user-1",
+      "action": "team-update",
+      "resource_type": "team",
+      "resource_id": 3,
+      "request_id": 4611686018427387903,
+      "outcome": "rejected",
+      "reason": "invalid_request"
+    }
+  ]
+}

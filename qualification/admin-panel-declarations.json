@@ -1,0 +1,133 @@
+{
+  "schemas": {
+    "svc/task-manager/schemas/admin.list-tasks.reply.schema.json": [
+      "task-manager",
+      "admin-panel"
+    ],
+    "svc/task-manager/schemas/admin.list-tasks.request.schema.json": [
+      "task-manager",
+      "admin-panel"
+    ],
+    "svc/task-manager/schemas/defs.schema.json": [
+      "task-manager",
+      "admin-panel",
+      "api-gateway",
+      "audit",
+      "env-registry",
+      "executor-registry",
+      "executor_docker_openhands",
+      "executor_k8s_openhands",
+      "journal",
+      "model-registry",
+      "source-controller"
+    ],
+    "svc/task-manager/schemas/error.reply.schema.json": [
+      "task-manager",
+      "admin-panel",
+      "api-gateway",
+      "env-registry",
+      "executor-registry",
+      "executor_docker_openhands",
+      "executor_k8s_openhands",
+      "model-registry"
+    ],
+    "svc/team-registry/schemas/admin.archive.reply.schema.json": [
+      "team-registry",
+      "admin-panel"
+    ],
+    "svc/team-registry/schemas/admin.archive.request.schema.json": [
+      "team-registry",
+      "admin-panel"
+    ],
+    "svc/team-registry/schemas/admin.create.reply.schema.json": [
+      "team-registry",
+      "admin-panel"
+    ],
+    "svc/team-registry/schemas/admin.create.request.schema.json": [
+      "team-registry",
+      "admin-panel"
+    ],
+    "svc/team-registry/schemas/admin.get.reply.schema.json": [
+      "team-registry",
+      "admin-panel"
+    ],
+    "svc/team-registry/schemas/admin.get.request.schema.json": [
+      "team-registry",
+      "admin-panel"
+    ],
+    "svc/team-registry/schemas/admin.update.reply.schema.json": [
+      "team-registry",
+      "admin-panel"
+    ],
+    "svc/team-registry/schemas/admin.update.request.schema.json": [
+      "team-registry",
+      "admin-panel"
+    ],
+    "svc/team-registry/schemas/error.reply.schema.json": [
+      "team-registry",
+      "admin-panel",
+      "api-gateway",
+      "env-registry",
+      "executor-registry",
+      "flow-registry",
+      "journal",
+      "model-registry",
+      "source-controller",
+      "task-manager"
+    ],
+    "svc/flow-registry/schemas/admin.tags.reply.schema.json": [
+      "flow-registry",
+      "admin-panel"
+    ],
+    "svc/flow-registry/schemas/admin.tags.request.schema.json": [
+      "flow-registry",
+      "admin-panel"
+    ],
+    "svc/flow-registry/schemas/defs.schema.json": [
+      "flow-registry",
+      "admin-panel",
+      "api-gateway",
+      "audit",
+      "env-registry",
+      "journal",
+      "model-registry",
+      "task-manager"
+    ],
+    "svc/flow-registry/schemas/error.reply.schema.json": [
+      "flow-registry",
+      "admin-panel",
+      "api-gateway",
+      "env-registry",
+      "model-registry",
+      "task-manager"
+    ],
+    "svc/admin-panel/schemas/audit.tags-list.schema.json": [
+      "admin-panel",
+      "audit"
+    ],
+    "svc/admin-panel/schemas/audit.tasks-list.schema.json": [
+      "admin-panel",
+      "audit"
+    ],
+    "svc/admin-panel/schemas/audit.team-archive.schema.json": [
+      "admin-panel",
+      "audit"
+    ],
+    "svc/admin-panel/schemas/audit.team-create.schema.json": [
+      "admin-panel",
+      "audit"
+    ],
+    "svc/admin-panel/schemas/audit.team-get.schema.json": [
+      "admin-panel",
+      "audit"
+    ],
+    "svc/admin-panel/schemas/audit.team-update.schema.json": [
+      "admin-panel",
+      "audit"
+    ],
+    "svc/admin-panel/schemas/defs.schema.json": [
+      "admin-panel",
+      "audit"
+    ]
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "defs.schema.json",
+  "title": "admin-panel shared definitions",
+  "description": "Definitions referenced by admin-panel's audit.<action>.schema.json files. Not a message by itself.",
+  "$defs": {
+    "rejection": {
+      "description": "Shared shape of every admin-panel rejection audit message. Published to ALL_AUDIT on admin-panel.audit.<action>.pub for a request whose admin JWT is valid but that admin-panel itself rejects before any downstream request (403 insufficient_admin_role, 400 invalid_request, 400 invalid_pagination). NATS headers: team = \"admin\", Nats-Msg-Id = \"admin-panel-<publisher_seq>\", request_id = the decimal request_id. The message carries no team_id field (team: admin record); a team the request names appears only as resource_id. It never carries a JWT, key material, secret or payload value.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publisher",
+        "publisher_seq",
+        "occurred_at",
+        "source_service",
+        "actor_type",
+        "actor_subject",
+        "action",
+        "resource_type",
+        "resource_id",
+        "request_id",
+        "outcome",
+        "reason"
+      ],
+      "properties": {
+        "publisher": {
+          "const": "admin-panel"
+        },
+        "publisher_seq": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807,
+          "description": "In-memory counter: starts at admin-panel's start time in Unix microseconds; each message takes max(previous + 1, now in Unix microseconds)."
+        },
+        "occurred_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z$",
+          "description": "RFC 3339 UTC with milliseconds."
+        },
+        "source_service": {
+          "const": "admin-panel"
+        },
+        "actor_type": {
+          "const": "administrator"
+        },
+        "actor_subject": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "description": "The verified admin JWT subject (external text)."
+        },
+        "action": {
+          "enum": [
+            "team-create",
+            "team-get",
+            "team-update",
+            "team-archive",
+            "tags-list",
+            "tasks-list"
+          ],
+          "description": "Equals the subject's <action> token."
+        },
+        "resource_type": {
+          "enum": ["team", "execution_tags", "tasks"],
+          "description": "team for /admin/teams*, execution_tags for /admin/tags, tasks for /admin/tasks."
+        },
+        "resource_id": {
+          "description": "The valid integer team_id the request names (path or team_id filter), or null.",
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9223372036854775807
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "request_id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9223372036854775807
+        },
+        "outcome": {
+          "const": "rejected"
+        },
+        "reason": {
+          "enum": [
+            "insufficient_admin_role",
+            "invalid_request",
+            "invalid_pagination"
+          ],
+          "description": "The error code admin-panel returned."
+        }
+      }
+    }
+  }
+}

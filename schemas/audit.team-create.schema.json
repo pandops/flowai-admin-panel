@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "audit.team-create.schema.json",
+  "title": "admin-panel rejection audit: team-create",
+  "description": "Published by admin-panel on admin-panel.audit.team-create.pub when it rejects POST /admin/teams itself. Shape: defs.schema.json#/$defs/rejection.",
+  "$ref": "defs.schema.json#/$defs/rejection",
+  "properties": {
+    "action": {
+      "const": "team-create"
+    },
+    "resource_type": {
+      "const": "team"
+    }
+  },
+  "examples": [
+    {
+      "publisher": "admin-panel",
+      "publisher_seq": 1762510000000001,
+      "occurred_at": "2026-11-07T10:00:01.250Z",
+      "source_service": "admin-panel",
+      "actor_type": "administrator",
+      "actor_subject": "admin-user-1",
+      "action": "team-create",
+      "resource_type": "team",
+      "resource_id": null,
+      "request_id": 4611686018427387901,
+      "outcome": "rejected",
+      "reason": "insufficient_admin_role"
+    }
+  ]
+}

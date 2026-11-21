@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "audit.tags-list.schema.json",
+  "title": "admin-panel rejection audit: tags-list",
+  "description": "Published by admin-panel on admin-panel.audit.tags-list.pub when it rejects GET /admin/tags itself. Shape: defs.schema.json#/$defs/rejection.",
+  "$ref": "defs.schema.json#/$defs/rejection",
+  "properties": {
+    "action": {
+      "const": "tags-list"
+    },
+    "resource_type": {
+      "const": "execution_tags"
+    }
+  },
+  "examples": [
+    {
+      "publisher": "admin-panel",
+      "publisher_seq": 1762510000000005,
+      "occurred_at": "2026-11-07T10:00:05.250Z",
+      "source_service": "admin-panel",
+      "actor_type": "administrator",
+      "actor_subject": "admin-user-1",
+      "action": "tags-list",
+      "resource_type": "execution_tags",
+      "resource_id": null,
+      "request_id": 4611686018427387905,
+      "outcome": "rejected",
+      "reason": "invalid_pagination"
+    }
+  ]
+}

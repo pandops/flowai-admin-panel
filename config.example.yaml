@@ -1,0 +1,24 @@
+# admin-panel configuration (every key the service reads).
+# admin-panel has no database: there is no db section, and unknown keys
+# are rejected at startup.
+http:
+  bind_host: 0.0.0.0
+  bind_port: 8080
+nats:
+  url: tls://nats.flowai.svc:4222 # TLS only
+  ca_file: /run/flowai/stand-ca/ca.pem
+  credentials_file: /run/flowai/nats/user.creds # static user JWT + seed
+  request_timeout: 5s # owner reply and audit acknowledgement wait
+admin:
+  issuer: https://keycloak.example/realms/flowai
+  audience: flowai-admin
+  jwks_url: https://keycloak.example/realms/flowai/protocol/openid-connect/certs
+  role_claim_pointer: /realm_access/roles # RFC 6901; role flowai-system-admin
+  algorithms: [RS256] # asymmetric only: RS256, RS384, RS512
+  admin_jwks_timeout: 5s # positive
+  admin_token_max_age: 5m # positive
+  clock_skew: 30s # 0 to 5m
+cursor_keys: # integer key ids, never reused; secrets of at least 32 bytes
+  - id: 1
+    secret_file: /run/flowai/secrets/cursor-key-1
+cursor_active_key_id: 1
