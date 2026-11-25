@@ -1,0 +1,104 @@
+[
+  {
+    "digest": "sha256:d1ffd2236bb2295a92afad864b4a1903537219b3ec9a98e91816a43ed6b8d940",
+    "path": "schemas/admin.archive.reply.schema.json",
+    "repository": "pandops/flowai-team-registry",
+    "sourceRevision": "5463b8022fbdd6c7da908dff2cb1de4a5114aa13"
+  },
+  {
+    "digest": "sha256:527f6d648f9eab68cff24ac9015afb2ac8ec024755a421800eb8d4d9f3466df1",
+    "path": "schemas/admin.archive.request.schema.json",
+    "repository": "pandops/flowai-team-registry",
+    "sourceRevision": "5463b8022fbdd6c7da908dff2cb1de4a5114aa13"
+  },
+  {
+    "digest": "sha256:84ee5af2e512466815cbd47b02e2e9160c8bfa121852c3bc4926a2e231c6d605",
+    "path": "schemas/admin.create.reply.schema.json",
+    "repository": "pandops/flowai-team-registry",
+    "sourceRevision": "5463b8022fbdd6c7da908dff2cb1de4a5114aa13"
+  },
+  {
+    "digest": "sha256:0da46c48d4a583415cc9e604a146f32d2a951fef303dfe27fe86a4557c6cdcdd",
+    "path": "schemas/admin.create.request.schema.json",
+    "repository": "pandops/flowai-team-registry",
+    "sourceRevision": "5463b8022fbdd6c7da908dff2cb1de4a5114aa13"
+  },
+  {
+    "digest": "sha256:8432e77c444a717339fb5ca1374bd3163ea03695c00f162b1d0eb806ac515947",
+    "path": "schemas/admin.get.reply.schema.json",
+    "repository": "pandops/flowai-team-registry",
+    "sourceRevision": "5463b8022fbdd6c7da908dff2cb1de4a5114aa13"
+  },
+  {
+    "digest": "sha256:08cba77ba58a055df2927070050a8a41777b18c6fde1eff59d1167032d3ccd7d",
+    "path": "schemas/admin.get.request.schema.json",
+    "repository": "pandops/flowai-team-registry",
+    "sourceRevision": "5463b8022fbdd6c7da908dff2cb1de4a5114aa13"
+  },
+  {
+    "digest": "sha256:ffa56a08f44d2b37dfa3838e51a9f09f0ccee6bc5b23bb3b6424b91bc87af0f0",
+    "path": "schemas/admin.update.reply.schema.json",
+    "repository": "pandops/flowai-team-registry",
+    "sourceRevision": "5463b8022fbdd6c7da908dff2cb1de4a5114aa13"
+  },
+  {
+    "digest": "sha256:faf7564f0e214d4f3c349320eb71fe1d5c32d66e640509d3ebaa556169397a5b",
+    "path": "schemas/admin.update.request.schema.json",
+    "repository": "pandops/flowai-team-registry",
+    "sourceRevision": "5463b8022fbdd6c7da908dff2cb1de4a5114aa13"
+  },
+  {
+    "digest": "sha256:2649df5e5e4cd385cd29678a4d60ea9b04a3f1c695e4b5299ed047300512a31f",
+    "path": "schemas/error.reply.schema.json",
+    "repository": "pandops/flowai-team-registry",
+    "sourceRevision": "5463b8022fbdd6c7da908dff2cb1de4a5114aa13"
+  },
+  {
+    "digest": "sha256:bd6ca5f2089f9cb2b46ac9ccfed85de4de051aac936c3f8d9a69ebec5f47e67c",
+    "path": "schemas/admin.tags.reply.schema.json",
+    "repository": "pandops/flowai-flow-registry",
+    "sourceRevision": "c2c5de0399f3d048434f36041800023891b165c7"
+  },
+  {
+    "digest": "sha256:904090de156bd3b4f8869fec8a47aaa68e27dc9725086849529e0d64c2e8911d",
+    "path": "schemas/admin.tags.request.schema.json",
+    "repository": "pandops/flowai-flow-registry",
+    "sourceRevision": "c2c5de0399f3d048434f36041800023891b165c7"
+  },
+  {
+    "digest": "sha256:d26e3cea5ff72963de45b933c2eff365d04280cc00fee3c6e76668778f597077",
+    "path": "schemas/defs.schema.json",
+    "repository": "pandops/flowai-flow-registry",
+    "sourceRevision": "c2c5de0399f3d048434f36041800023891b165c7"
+  },
+  {
+    "digest": "sha256:f8e2d07fc5d530e3fe522b952cc8d44dad57ddb84311b8fb32bec520ed3f7dad",
+    "path": "schemas/error.reply.schema.json",
+    "repository": "pandops/flowai-flow-registry",
+    "sourceRevision": "c2c5de0399f3d048434f36041800023891b165c7"
+  },
+  {
+    "digest": "sha256:7615f9f8bddb792d01f5110c52c71341551140eaa48bc4f9f854d3ae3babda0a",
+    "path": "schemas/admin.list-tasks.reply.schema.json",
+    "repository": "pandops/flowai-task-manager",
+    "sourceRevision": "1398e8cc5a221dc8c39b5180f2af0a75bd826dd3"
+  },
+  {
+    "digest": "sha256:ab0e2b8f323ea6452a011741f465c64e7cfe8c9f7afc896bc7c21754e0f4f630",
+    "path": "schemas/admin.list-tasks.request.schema.json",
+    "repository": "pandops/flowai-task-manager",
+    "sourceRevision": "1398e8cc5a221dc8c39b5180f2af0a75bd826dd3"
+  },
+  {
+    "digest": "sha256:5bb6eea9a1419dd7019c4a1998a83e57e71c277c3ecedd2f13f67c6a1023adc6",
+    "path": "schemas/defs.schema.json",
+    "repository": "pandops/flowai-task-manager",
+    "sourceRevision": "1398e8cc5a221dc8c39b5180f2af0a75bd826dd3"
+  },
+  {
+    "digest": "sha256:59fa187d28347ea05a517c81ee312bee4041736fd36d906c5f0234a88f7f0c46",
+    "path": "schemas/error.reply.schema.json",
+    "repository": "pandops/flowai-task-manager",
+    "sourceRevision": "1398e8cc5a221dc8c39b5180f2af0a75bd826dd3"
+  }
+]
