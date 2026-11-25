@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "audit.team-get.schema.json",
+  "title": "admin-panel rejection audit: team-get",
+  "description": "Published by admin-panel on admin-panel.audit.team-get.pub when it rejects GET /admin/teams/{team_id} itself. Shape: defs.schema.json#/$defs/rejection.",
+  "$ref": "defs.schema.json#/$defs/rejection",
+  "properties": {
+    "action": {
+      "const": "team-get"
+    },
+    "resource_type": {
+      "const": "team"
+    }
+  },
+  "examples": [
+    {
+      "publisher": "admin-panel",
+      "publisher_seq": 1762510000000002,
+      "occurred_at": "2026-11-07T10:00:02.250Z",
+      "source_service": "admin-panel",
+      "actor_type": "administrator",
+      "actor_subject": "admin-user-1",
+      "action": "team-get",
+      "resource_type": "team",
+      "resource_id": 3,
+      "request_id": 4611686018427387902,
+      "outcome": "rejected",
+      "reason": "insufficient_admin_role"
+    }
+  ]
+}
